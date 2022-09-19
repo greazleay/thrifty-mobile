@@ -4,7 +4,9 @@ import {
     Text,
     View
 } from 'react-native';
-import { Button, Input } from '@rneui/themed';
+import { Button, Incubator } from 'react-native-ui-lib';
+
+const { TextField } = Incubator
 
 export const SignIn = () => {
     return (
@@ -35,22 +37,32 @@ export const SignIn = () => {
                         height: 150
                     }}
                 >
-                    <Input
-                        placeholder='Email'
-                        leftIcon={{ type: 'font-awesome', name: 'at' }}
-                        containerStyle={styles.input}
+                    <TextField
+                        placeholder={'Email'}
+                        floatingPlaceholder
+                        onChangeText={(text: string) => console.log(text)}
+                        enableErrors
+                        validate={['required', 'email']}
+                        validationMessage={['Field is required', 'Email is invalid']}
+                        showCharCounter
+                        maxLength={30}
+                        color='white'
                     />
-                    <Input
+
+                    <TextField
                         placeholder='Password'
-                        leftIcon={{ type: 'font-awesome', name: 'eye-slash' }}
-                        containerStyle={styles.input}
+                        floatingPlaceholder
+                        onChangeText={(text: string) => console.log(text)}
+                        enableErrors
+                        validate={['required', 'password', (value: string | any[]) => value.length > 6]}
+                        validationMessage={['Field is required', 'Password is too short']}
+                        showCharCounter
+                        maxLength={30}
+                        color='white'
                     />
+
                     <Button
-                        title={'Sign In'}
-                        size='sm'
-                        buttonStyle={{
-                            borderRadius: 10
-                        }}
+                        label='Sign In'
                     />
                 </View>
 
@@ -67,7 +79,4 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    input: {
-        width: 200
-    }
 });
